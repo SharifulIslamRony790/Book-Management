@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h3 class="mb-0">{{ book.name }}</h3>
+                <small>Published: {{ book.published_date }}</small>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title text-muted mb-3">{{ book.author }} | {{ book.journal }}</h5>
+                <hr>
+                <p class="card-text">{{ book.description|linebreaks }}</p>
+                <div class="mt-4">
+                    <strong>Publisher:</strong> {{ book.publisher }}
+                </div>
+            </div>
+            <div class="card-footer bg-white">
+                <a href="{% url 'book_list' %}" class="btn btn-secondary">Back to List</a>
+                <a href="{% url 'book_update' book.pk %}" class="btn btn-warning float-end ms-2">Edit</a>
+                <a href="{% url 'book_delete' book.pk %}" class="btn btn-danger float-end">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
