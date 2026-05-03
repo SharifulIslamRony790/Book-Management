@@ -107,6 +107,46 @@ This project uses standard Django settings. For production deployment, ensure yo
 - `SECRET_KEY`: Use a secure, random string
 - `ALLOWED_HOSTS`: List of authorized domains
 
+## Deployment on Render (with SQLite)
+
+Follow these steps to deploy the project on Render using SQLite database:
+
+1. **Push Code to GitHub**
+   - Create a new repository on GitHub.
+   - Run the following commands in your project directory:
+     ```bash
+     git init
+     git add .
+     git commit -m "Prepare for deployment"
+     git remote add origin https://github.com/your-username/your-repo.git
+     git push -u origin main
+     ```
+
+2. **Create Render Account**
+   - Go to [render.com](https://render.com) and sign up for a free account.
+
+3. **Create Web Service**
+   - In the Render dashboard, click "New" > "Web Service".
+   - Connect your GitHub repository.
+   - Set the following:
+     - **Runtime**: Python 3
+     - **Build Command**: `./build.sh`
+     - **Start Command**: `gunicorn Config.wsgi:application --bind 0.0.0.0:$PORT`
+
+4. **Set Environment Variables**
+   - In the web service settings, go to "Environment".
+   - Add the following variables:
+     - `DEBUG`: False
+     - `SECRET_KEY`: A random string (e.g., `your-secure-secret-key`)
+     - `ALLOWED_HOSTS`: your-app-name.onrender.com
+
+5. **Deploy**
+   - Click "Create Web Service" or "Manual Deploy" > "Deploy latest commit".
+   - Wait for the build to complete.
+   - Access your app at the provided URL (e.g., https://your-app-name.onrender.com/list/).
+
+Note: SQLite data may not persist across deploys. For production, consider using PostgreSQL.
+
 ## Contributing Guidelines
 
 Contributions are welcome! Please follow these steps:
